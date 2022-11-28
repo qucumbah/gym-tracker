@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { Fragment } from "react";
+import React from "react";
 import { useSession, signOut, signIn } from "next-auth/react";
 import Link from "next/link";
 import { Menu, Transition } from "@headlessui/react";
@@ -9,8 +9,7 @@ const Layout: React.FC<{
   skipSessionCheck?: boolean;
 }> = ({ children, skipSessionCheck }) => {
   const { data: session } = useSession({
-    // required: !(skipSessionCheck ?? false),
-    required: false,
+    required: !(skipSessionCheck ?? false),
   });
 
   // Readonly to allow using index as key
@@ -40,7 +39,7 @@ const Layout: React.FC<{
               <Image src="/bars.svg" alt="" fill />
             </Menu.Button>
             <Transition
-              as={Fragment}
+              as={React.Fragment}
               enter="transition ease-out duration-100"
               enterFrom="transform opacity-0 scale-95"
               enterTo="transform opacity-100 scale-100"
@@ -50,7 +49,11 @@ const Layout: React.FC<{
             >
               <Menu.Items className="absolute left-1/2 -translate-x-1/2 translate-y-2 text-black text-2xl whitespace-nowrap bg-white rounded-md overflow-hidden flex flex-col">
                 {navLinks.map((link, index) => (
-                  <Menu.Item as="li" key={index} className="list-none py-4 px-6">
+                  <Menu.Item
+                    as="li"
+                    key={index}
+                    className="list-none py-4 px-6"
+                  >
                     {link}
                   </Menu.Item>
                 ))}
@@ -73,7 +76,7 @@ const Layout: React.FC<{
                 })
               }
             >
-              <div>
+              <div className="hidden lg:block">
                 Signed in as
                 <br />
                 {session.user?.name}

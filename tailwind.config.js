@@ -9,8 +9,12 @@ module.exports = {
         audiowide: ["Audiowide", "cursive"],
       },
       fontSize: {
-        adaptive: "clamp(1rem, .9rem + .2vw, 1.2rem)"
-      }
+        adaptive: "clamp(1rem, .9rem + .2vw, 1.2rem)",
+      },
+      colors: {
+        accent: "hsl(220, 30%, 60%)",
+        neutral: "hsl(220, 10%, 30%)",
+      },
     },
   },
   plugins: [],
