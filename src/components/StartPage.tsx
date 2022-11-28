@@ -37,6 +37,7 @@ const StartPage: NextPage = () => {
             <div className="h-8 flex justify-center gap-2">
               <div className="relative w-8 h-full">
                 <Image
+                  sizes="100vw"
                   src="/github_mark.png"
                   className="object-contain"
                   fill
@@ -45,6 +46,7 @@ const StartPage: NextPage = () => {
               </div>
               <div className="relative w-16 h-full">
                 <Image
+                  sizes="100vw"
                   src="/github_logo.png"
                   className="object-contain"
                   fill

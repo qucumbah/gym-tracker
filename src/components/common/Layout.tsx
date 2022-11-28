@@ -26,8 +26,8 @@ const Layout: React.FC<{
           href="/"
           className="cursor-pointer flex gap-2 items-center py-4 justify-self-start"
         >
-          <div className="inline-block invert aspect-square w-8">
-            <Image src="/icon.svg" fill alt="logo" />
+          <div className="inline-block relative aspect-square w-8">
+            <Image src="/icon.svg" fill sizes="100vw" alt="logo" />
           </div>
           <span className="font-audiowide text-sm uppercase hidden lg:block">
             Workoutly
@@ -36,7 +36,7 @@ const Layout: React.FC<{
         <nav className="">
           <Menu as="div" className="md:hidden">
             <Menu.Button className="relative aspect-square w-10 invert">
-              <Image src="/bars.svg" alt="" fill />
+              <Image src="/bars.svg" alt="" fill sizes="100vw" />
             </Menu.Button>
             <Transition
               as={React.Fragment}
@@ -76,13 +76,9 @@ const Layout: React.FC<{
                 })
               }
             >
-              <div className="hidden lg:block">
-                Signed in as
-                <br />
-                {session.user?.name}
-              </div>
-              <div className="relative aspect-square w-6 invert">
-                <Image src="/logout.svg" fill alt="" />
+              <div className="hidden lg:block">{session.user?.name}</div>
+              <div className="relative aspect-square w-6">
+                <Image src="/logout.svg" fill sizes="100vw" alt="" />
               </div>
             </button>
           ) : (
@@ -90,8 +86,8 @@ const Layout: React.FC<{
               className="flex gap-4 items-center"
               onClick={() => signIn()}
             >
-              <div className="relative aspect-square w-6 invert">
-                <Image src="/login.svg" fill alt="" />
+              <div className="relative aspect-square w-6">
+                <Image src="/login.svg" fill sizes="100vw" alt="" />
               </div>
               <div className="hidden lg:block">Sign in</div>
             </button>
@@ -99,8 +95,6 @@ const Layout: React.FC<{
         </div>
       </header>
       <div className="grid">{children}</div>
-      <div className="fixed inset-0 -z-50 bg-slate-800" />
-      <div className="fixed inset-0 -z-50 bg-[url(/noise.png)] opacity-10 filter grayscale-[0.6] brightness-50" />
     </div>
   );
 };

@@ -31,6 +31,7 @@ const LandingPage: NextPageWithCustomLayout = () => {
                 src="/github_mark.png"
                 className="object-contain"
                 fill
+                sizes="100vw"
                 alt="GitHub icon"
               />
             </div>
@@ -39,6 +40,7 @@ const LandingPage: NextPageWithCustomLayout = () => {
                 src="/github_logo.png"
                 className="object-contain"
                 fill
+                sizes="100vw"
                 alt="GitHub logo"
               />
             </div>

@@ -33,7 +33,7 @@ const CreateWorkoutPage: NextPage = () => {
       <div className="flex gap-2 justify-center items-center">
         New workout
         <div className="relative shrink-0 aspect-square w-4 invert">
-          <Image src="/double_arrow.svg" fill alt="" />
+          <Image src="/double_arrow.svg" fill sizes="100vw" alt="" />
         </div>
       </div>
     </Button>
@@ -64,7 +64,7 @@ const CreateWorkoutPage: NextPage = () => {
           <div className="flex gap-2 justify-center items-center">
             {workout.name}
             <div className="relative shrink-0 aspect-square w-4 invert">
-              <Image src="/copy.svg" fill alt="" />
+              <Image src="/copy.svg" fill sizes="100vw" alt="" />
             </div>
           </div>
         </Button>

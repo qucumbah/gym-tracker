@@ -9,7 +9,6 @@
 @layer base {
   :root {
     @apply font-primary;
-    @apply text-white;
     @apply scroll-smooth;
     @apply text-adaptive;
   }

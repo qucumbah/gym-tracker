@@ -32,8 +32,8 @@ const PreviousWorkouts: NextPage = () => {
                 >
                   <div className="flex gap-2 justify-center items-center">
                     {workout.name}
-                    <div className="relative shrink-0 aspect-square w-4 invert">
-                      <Image src="/edit.svg" fill alt="" />
+                    <div className="relative shrink-0 aspect-square w-4">
+                      <Image src="/edit.svg" fill sizes="100vw" alt="" />
                     </div>
                   </div>
                 </Button>
