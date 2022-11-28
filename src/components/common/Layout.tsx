@@ -1,15 +1,25 @@
 import Image from "next/image";
-import React from "react";
+import React, { Fragment } from "react";
 import { useSession, signOut, signIn } from "next-auth/react";
 import Link from "next/link";
+import { Menu, Transition } from "@headlessui/react";
 
 const Layout: React.FC<{
   children: React.ReactNode;
   skipSessionCheck?: boolean;
 }> = ({ children, skipSessionCheck }) => {
   const { data: session } = useSession({
-    required: !(skipSessionCheck ?? false),
+    // required: !(skipSessionCheck ?? false),
+    required: false,
   });
+
+  // Readonly to allow using index as key
+  const navLinks = [
+    <Link href="/">Home</Link>,
+    <Link href="/create-workout">New workout</Link>,
+    <Link href="/previous-workouts">Previous workouts</Link>,
+  ] as const;
+
   return (
     <div className="grid grid-rows-[auto_1fr] min-h-screen px-4 w-[clamp(20rem,80vw,80rem)] sm:w-3/4 mx-auto">
       <header className="grid grid-cols-[1fr_max-content_1fr] place-items-center justify-between h-24">
@@ -25,16 +35,32 @@ const Layout: React.FC<{
           </span>
         </Link>
         <nav className="">
-          <ul className="flex justify-center gap-12">
-            <li>
-              <Link href="/">Home</Link>
-            </li>
-            <li>
-              <Link href="/create-workout">New workout</Link>
-            </li>
-            <li>
-              <Link href="/previous-workouts">Previous workouts</Link>
-            </li>
+          <Menu as="div" className="md:hidden">
+            <Menu.Button className="relative aspect-square w-10 invert">
+              <Image src="/bars.svg" alt="" fill />
+            </Menu.Button>
+            <Transition
+              as={Fragment}
+              enter="transition ease-out duration-100"
+              enterFrom="transform opacity-0 scale-95"
+              enterTo="transform opacity-100 scale-100"
+              leave="transition ease-in duration-75"
+              leaveFrom="transform opacity-100 scale-100"
+              leaveTo="transform opacity-0 scale-95"
+            >
+              <Menu.Items className="absolute left-1/2 -translate-x-1/2 translate-y-2 text-black text-2xl whitespace-nowrap bg-white rounded-md overflow-hidden flex flex-col">
+                {navLinks.map((link, index) => (
+                  <Menu.Item as="li" key={index} className="list-none py-4 px-6">
+                    {link}
+                  </Menu.Item>
+                ))}
+              </Menu.Items>
+            </Transition>
+          </Menu>
+          <ul className="hidden md:flex justify-center gap-12">
+            {navLinks.map((link, index) => (
+              <li key={index}>{link}</li>
+            ))}
           </ul>
         </nav>
         <div className="justify-self-end whitespace-nowrap">
@@ -64,7 +90,7 @@ const Layout: React.FC<{
               <div className="relative aspect-square w-6 invert">
                 <Image src="/login.svg" fill alt="" />
               </div>
-              <div>Sign in</div>
+              <div className="hidden lg:block">Sign in</div>
             </button>
           )}
         </div>
