@@ -26,67 +26,9 @@ export const workoutsRouter = router({
           },
         },
         include: {
-          exercises: {
+          trainingSets: {
             include: {
-              trainingSets: true,
-              exerciseKind: true,
-            },
-          },
-        },
-      });
-    }),
-  copy: protectedProcedure
-    .input(
-      z.object({
-        copyTargetId: z.string(),
-      })
-    )
-    .mutation(async ({ input, ctx }) => {
-      const existingWorkout = await prisma.workout.findUnique({
-        where: {
-          id_userId: {
-            id: input.copyTargetId,
-            userId: ctx.user.id,
-          },
-        },
-        include: {
-          exercises: {
-            include: {
-              trainingSets: true,
-              exerciseKind: true,
-            },
-          },
-        },
-      });
-
-      if (existingWorkout === null) {
-        throw new TRPCError({
-          code: "BAD_REQUEST",
-          message: "Invalid copy target ID",
-        });
-      }
-
-      // TODO: this is broken
-      return prisma.workout.create({
-        data: {
-          name: existingWorkout.name,
-          userId: existingWorkout.userId,
-          exercises: {
-            createMany: {
-              data: existingWorkout.exercises.map((existingExercise) => ({
-                exerciseKindId: existingExercise.exerciseKindId,
-                userId: existingWorkout.userId,
-                sets: {
-                  createMany: {
-                    data: existingExercise.trainingSets.map((existingSet) => ({
-                      userId: existingWorkout.userId,
-                      load: existingSet.load,
-                      reps: existingSet.reps,
-                      rpe: existingSet.rpe,
-                    })),
-                  },
-                },
-              })),
+              exercise: true,
             },
           },
         },
@@ -108,7 +50,7 @@ export const workoutsRouter = router({
     .input(
       z.object({
         workoutId: z.string(),
-        name: z.string().optional(),
+        name: z.string(),
       })
     )
     .mutation(async ({ input, ctx }) => {

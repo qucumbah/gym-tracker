@@ -11,7 +11,7 @@ import Button from "@/components/common/Button";
 const CreateWorkoutPage: NextPage = () => {
   const { data: workouts } = trpc.workouts.list.useQuery();
   const workoutCreateMutation = trpc.workouts.create.useMutation();
-  const workoutCopyMutation = trpc.workouts.copy.useMutation();
+  // const workoutCopyMutation = trpc.workouts.copy.useMutation();
 
   const newWorkoutElement: JSX.Element = (
     <Button
@@ -46,18 +46,18 @@ const CreateWorkoutPage: NextPage = () => {
       <li key={workout.id}>
         <Button
           onClick={async () => {
-            setIsCreatingWorkout(true);
-            const creationResult: Workout =
-              await workoutCopyMutation.mutateAsync({
-                copyTargetId: workout.id,
-              });
+            // setIsCreatingWorkout(true);
+            // const creationResult: Workout =
+            //   await workoutCopyMutation.mutateAsync({
+            //     copyTargetId: workout.id,
+            //   });
 
-            Router.push({
-              pathname: "/workout",
-              query: {
-                workoutId: creationResult.id,
-              },
-            });
+            // Router.push({
+            //   pathname: "/workout",
+            //   query: {
+            //     workoutId: creationResult.id,
+            //   },
+            // });
           }}
           className="w-full"
         >

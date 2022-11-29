@@ -31,8 +31,8 @@ const Modal: React.FC<{
           leaveTo="opacity-0 scale-95"
         >
           <div className="fixed inset-0 grid place-items-center">
-            <Dialog.Panel className="rounded bg-white p-8 shadow-xl">
-              <Dialog.Title>{title}</Dialog.Title>
+            <Dialog.Panel className="rounded bg-white p-6 shadow-xl">
+              <Dialog.Title className="font-bold text-lg mb-4">{title}</Dialog.Title>
               {children}
             </Dialog.Panel>
           </div>

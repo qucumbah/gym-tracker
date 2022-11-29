@@ -11,12 +11,11 @@ const Layout: React.FC<{
   const { data: session } = useSession({
     required: !(skipSessionCheck ?? false),
   });
-
   // Readonly to allow using index as key
   const navLinks = [
-    <Link href="/">Home</Link>,
-    <Link href="/create-workout">New workout</Link>,
-    <Link href="/previous-workouts">Previous workouts</Link>,
+    <Link className="py-4 px-6 block" href="/">Home</Link>,
+    <Link className="py-4 px-6 block" href="/create-workout">New workout</Link>,
+    <Link className="py-4 px-6 block" href="/previous-workouts">Previous workouts</Link>,
   ] as const;
 
   return (
@@ -35,7 +34,7 @@ const Layout: React.FC<{
         </Link>
         <nav className="">
           <Menu as="div" className="md:hidden">
-            <Menu.Button className="relative aspect-square w-10 invert">
+            <Menu.Button className="relative aspect-square w-10">
               <Image src="/bars.svg" alt="" fill sizes="100vw" />
             </Menu.Button>
             <Transition
@@ -47,12 +46,12 @@ const Layout: React.FC<{
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="absolute left-1/2 -translate-x-1/2 translate-y-2 text-black text-2xl whitespace-nowrap bg-white rounded-md overflow-hidden flex flex-col">
+              <Menu.Items className="absolute left-1/2 -translate-x-1/2 translate-y-2 shadow-[0px_5px_25px_0px_rgba(0,0,0,0.2)] text-2xl whitespace-nowrap bg-white rounded-md overflow-hidden flex flex-col">
                 {navLinks.map((link, index) => (
                   <Menu.Item
                     as="li"
                     key={index}
-                    className="list-none py-4 px-6"
+                    className="list-none"
                   >
                     {link}
                   </Menu.Item>

@@ -15,43 +15,35 @@ model Workout {
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  name      String
-  exercises Exercise[]
+  name         String
+  trainingSets TrainingSet[]
 
   @@unique([id, userId])
-}
-
-model Exercise {
-  id String @id @default(cuid())
-
-  workoutId String
-  workout   Workout @relation(fields: [workoutId], references: [id])
-
-  exerciseKindId String
-  exerciseKind   ExerciseKind  @relation(fields: [exerciseKindId], references: [id])
-  trainingSets   TrainingSet[]
-
-  @@unique([id, workoutId])
 }
 
 model TrainingSet {
   id String @id @default(cuid())
 
+  workoutId String
+  workout   Workout @relation(fields: [workoutId], references: [id], onDelete: Cascade)
+
+  exercise   Exercise @relation(fields: [exerciseId], references: [id])
   exerciseId String
-  exercise   Exercise @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
 
   load Float
   reps Int
-  rpe  Float?
 
-  @@unique([id, exerciseId])
+  @@unique([id, userId])
 }
 
-model ExerciseKind {
+model Exercise {
   id   String @id @default(cuid())
   name String
 
-  exercises Exercise[]
+  trainingSets TrainingSet[]
 }
 
 model Account {
@@ -74,13 +66,14 @@ model Account {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String        @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?       @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
   workouts      Workout[]
+  TrainingSet   TrainingSet[]
 }
 
 model VerificationToken {
