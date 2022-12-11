@@ -13,3 +13,7 @@
     @apply text-adaptive;
   }
 }
+
+[data-nextjs-scroll-focus-boundary] {
+  display: grid;
+}
