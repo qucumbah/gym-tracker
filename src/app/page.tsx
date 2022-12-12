@@ -1,4 +1,4 @@
-import getServerSession from "@/util/getServerSession";
+import getServerSession from "@/utils/getServerSession";
 import Image from "next/image";
 import Buttons from "./(page)/Buttons";
 
