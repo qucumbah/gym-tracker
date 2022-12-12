@@ -25,13 +25,6 @@ export const workoutsRouter = router({
             userId: ctx.user.id,
           },
         },
-        include: {
-          trainingSets: {
-            include: {
-              exercise: true,
-            },
-          },
-        },
       });
     }),
   create: protectedProcedure.mutation(async ({ ctx }) => {

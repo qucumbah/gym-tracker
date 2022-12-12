@@ -5,7 +5,7 @@ import { useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { httpBatchLink } from "@trpc/client";
 
-function getTRPCUrl() {
+function getBaseUrl() {
   if (typeof window !== "undefined") {
     return "";
   }
@@ -14,7 +14,7 @@ function getTRPCUrl() {
     return `https://${process.env.VERCEL_URL}`;
   }
 
-  return `http://localhost:${process.env.PORT ?? 3000}/api/trpc`;
+  return `http://localhost:${process.env.PORT ?? 3000}`;
 }
 
 export default function TRPCClientProvider({
@@ -29,7 +29,7 @@ export default function TRPCClientProvider({
     trpc.createClient({
       links: [
         httpBatchLink({
-          url: getTRPCUrl(),
+          url: `${getBaseUrl()}/api/trpc`,
           headers: {
             cookie: cookieHeader,
           },

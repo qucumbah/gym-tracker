@@ -3,6 +3,16 @@ import { prisma } from "@/server/utils/prisma";
 import { z } from "zod";
 
 export const trainingSetsRouter = router({
+  list: protectedProcedure
+    .input(z.object({ workoutId: z.string() }))
+    .query(({ input, ctx }) => {
+      return prisma.trainingSet.findMany({
+        where: {
+          workoutId: input.workoutId,
+          userId: ctx.user.id,
+        },
+      });
+    }),
   create: protectedProcedure
     .input(
       z.object({
