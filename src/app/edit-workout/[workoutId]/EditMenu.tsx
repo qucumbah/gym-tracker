@@ -7,6 +7,7 @@ import { trpc } from "@/utils/trpc";
 import { Exercise, TrainingSet, Workout } from "@prisma/client";
 import cuid from "cuid";
 import { useCallback, useMemo, useState } from "react";
+import TrainingSetEditor from "./TrainingSetEditor";
 import { useOptimisticData } from "./useOptimisticData";
 
 export default function EditMenu({
@@ -51,7 +52,7 @@ export default function EditMenu({
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isDiscardModalOpen, setIsDiscardModalOpen] = useState(false);
 
-  const changeWorkoutName = useCallback(
+  const updateWorkoutName = useCallback(
     (newName: string) => {
       update((oldData) => ({
         ...oldData,
@@ -64,7 +65,33 @@ export default function EditMenu({
     [update]
   );
 
-  const createSet = useCallback(
+  const updateTrainingSet = useCallback(
+    (updatedTrainingSet: TrainingSet) => {
+      update((oldData) => ({
+        ...oldData,
+        trainingSets: trainingSets.map((trainingSet) =>
+          trainingSet.id === updatedTrainingSet.id
+            ? updatedTrainingSet
+            : trainingSet
+        ),
+      }));
+    },
+    [update]
+  );
+
+  const deleteTrainingSet = useCallback(
+    (trainingSetToDelete: TrainingSet) => {
+      update((oldData) => ({
+        ...oldData,
+        trainingSets: trainingSets.filter(
+          (trainingSet) => trainingSet.id !== trainingSetToDelete.id
+        ),
+      }));
+    },
+    [update]
+  );
+
+  const createTrainingSet = useCallback(
     (exercise: Exercise) => {
       const newTrainingSet: TrainingSet = {
         id: cuid(),
@@ -93,14 +120,16 @@ export default function EditMenu({
 
   return (
     <div>
-      <section className="grid grid-rows-2 md:grid-cols-2 md:gap-20">
+      <section className="grid md:grid-cols-2 md:gap-20 py-4">
         <div className="grid grid-cols-[auto_1fr] gap-2 place-items-center">
           <h2 className="uppercase">Workout name:</h2>
           <input
-            type="text"
-            className="w-full text-xl md:text-2xl border-b border-accent"
+            className={[
+              "w-full text-xl md:text-2xl border-b border-accent",
+              isLoading ? "opacity-30" : "",
+            ].join(" ")}
             value={workout.name}
-            onChange={(event) => changeWorkoutName(event.currentTarget.value)}
+            onChange={(event) => updateWorkoutName(event.currentTarget.value)}
             disabled={isLoading}
           />
         </div>
@@ -123,12 +152,16 @@ export default function EditMenu({
         </div>
       </section>
       <section className="grid grid-cols-1 gap-4">
-        <h2>Sets:</h2>
+        <h2 className="uppercase">Sets:</h2>
         {trainingSets.map((trainingSet) => (
-          <div>
-            <span>Training set for exercise:</span>
-            <span>{exercisesMap.get(trainingSet.exerciseId)?.name}</span>
-          </div>
+          <TrainingSetEditor
+            key={trainingSet.id}
+            trainingSet={trainingSet}
+            exerciseName={exercisesMap.get(trainingSet.exerciseId)?.name ?? ""}
+            onChange={updateTrainingSet}
+            onDelete={() => deleteTrainingSet(trainingSet)}
+            disabled={isLoading}
+          />
         ))}
         <Button
           primary
@@ -149,7 +182,7 @@ export default function EditMenu({
             <ExercisesList
               exercises={exercises}
               onSelect={(exercise) => {
-                createSet(exercise);
+                createTrainingSet(exercise);
                 setIsCreateModalOpen(false);
               }}
             />
