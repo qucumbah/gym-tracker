@@ -12,7 +12,7 @@ export default function Modal({
   isOpen: boolean;
   onClose: () => void;
   title?: string;
-  children: React.ReactElement;
+  children: React.ReactNode;
 }) {
   return (
     <Transition appear show={isOpen} as={React.Fragment}>

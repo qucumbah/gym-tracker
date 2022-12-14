@@ -35,10 +35,15 @@ export function useOptimisticData<T>(
     });
   }, [optimisticData, pushFn]);
 
+  const discard = useCallback(() => {
+    setOptimisticData(null);
+  }, [data]);
+
   return {
     data: returnData,
     update,
     sync,
+    discard,
     isLoading: isPushing || isPulling,
     isOutdated: optimisticData !== null,
   };
