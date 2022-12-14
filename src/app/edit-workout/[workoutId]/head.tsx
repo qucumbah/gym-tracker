@@ -4,7 +4,7 @@ export default function Head() {
   return (
     <>
       <DefaultHead />
-      <title>Create Workout</title>
+      <title>Editing Workout</title>
     </>
   );
 }

@@ -92,4 +92,35 @@ export const trainingSetsRouter = router({
         },
       });
     }),
+  replace: protectedProcedure
+    .input(
+      z.object({
+        workoutId: z.string(),
+        replacements: z.array(
+          z.object({
+            trainingSetId: z.string().optional(),
+            load: z.number(),
+            reps: z.number(),
+            workoutId: z.string(),
+            exerciseId: z.string(),
+          })
+        ),
+      })
+    )
+    .mutation(({ input, ctx }) => {
+      return prisma.$transaction([
+        prisma.trainingSet.deleteMany({
+          where: {
+            userId: ctx.user.id,
+            workoutId: input.workoutId,
+          },
+        }),
+        prisma.trainingSet.createMany({
+          data: input.replacements.map((replacement) => ({
+            ...replacement,
+            userId: ctx.user.id,
+          })),
+        }),
+      ]);
+    }),
 });

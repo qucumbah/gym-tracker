@@ -35,6 +35,7 @@ model TrainingSet {
   reps Int
 
   @@unique([id, userId])
+  @@index([workoutId])
 }
 
 model Exercise {

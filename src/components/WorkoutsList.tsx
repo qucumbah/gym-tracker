@@ -13,7 +13,7 @@ export default function WorkoutsList({
   additionalContent?: React.ReactNode;
 }) {
   return (
-    <ul className="w-full">
+    <ul className="w-full flex flex-col gap-2">
       {workouts.map((workout: Workout) => (
         <li key={workout.id}>
           <Button onClick={() => onSelect(workout)} className="w-full">
