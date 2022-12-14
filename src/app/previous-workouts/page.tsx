@@ -2,7 +2,7 @@ import React from "react";
 import { appRouter } from "@/server/router";
 import getServerSession from "@/utils/getServerSession";
 import { Workout } from "@prisma/client";
-import WorkoutEditMenu from './WorkoutEditMenu';
+import WorkoutToEditPickMenu from "./WorkoutToEditPickMenu";
 
 export default async function PreviousWorkoutsPage() {
   const session = await getServerSession({ required: true });
@@ -14,7 +14,7 @@ export default async function PreviousWorkoutsPage() {
   return (
     <main className="w-[clamp(15rem,50%,30rem)] mx-auto flex flex-col justify-center items-center gap-8">
       <h1 className="font-accent text-2xl uppercase">Edit Workout</h1>
-      <WorkoutEditMenu workouts={workouts} />
+      <WorkoutToEditPickMenu workouts={workouts} />
     </main>
   );
 }

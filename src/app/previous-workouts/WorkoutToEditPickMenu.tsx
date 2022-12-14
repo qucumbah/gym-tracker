@@ -5,9 +5,14 @@ import WorkoutsList from "@/components/WorkoutsList";
 import { Workout } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
-export default function WorkoutEditMenu({ workouts }: { workouts: Workout[] }) {
-  const handleEditStart = (workout: Workout) => {};
+export default function WorkoutToEditPickMenu({ workouts }: { workouts: Workout[] }) {
+  const router = useRouter();
+
+  const handleEditStart = (workout: Workout) => {
+    router.push(`/edit-workout/${workout.id}`);
+  };
 
   return (
     <>

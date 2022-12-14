@@ -34,7 +34,7 @@ export default function EditMenu({
 
   return (
     <div>
-      <div className="grid grid-cols-[1fr_1fr]">
+      <div className="grid grid-rows-2 md:grid-cols-2 md:gap-20">
         <WorkoutNameInput
           workoutName={data.workout.name}
           onChange={(newName) =>
@@ -48,11 +48,18 @@ export default function EditMenu({
           }
           disabled={isLoading}
         />
-        <div className="flex justify-end gap-2">
-          <Button primary disabled={isLoading || !isOutdated} onClick={sync}>
-            Save
+        <div className="grid grid-cols-2 gap-2">
+          <Button
+            primary
+            disabled={isLoading || !isOutdated}
+            onClick={sync}
+            className="px-0"
+          >
+            {isOutdated ? "Save" : "Saved"}
           </Button>
-          <Button disabled={isLoading || !isOutdated}>Discard</Button>
+          <Button disabled={isLoading || !isOutdated} className="px-0">
+            Discard
+          </Button>
         </div>
       </div>
     </div>

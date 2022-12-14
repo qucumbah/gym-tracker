@@ -14,7 +14,7 @@ export default function WorkoutNameInput({
       <h2 className="uppercase">Workout name:</h2>
       <input
         type="text"
-        className="w-full text-2xl border-b border-accent"
+        className="w-full text-xl md:text-2xl border-b border-accent"
         value={workoutName}
         onChange={(event) => onChange(event.currentTarget.value)}
         disabled={disabled}
