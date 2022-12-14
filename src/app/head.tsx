@@ -4,7 +4,7 @@ export default function HomeHead() {
   return (
     <>
       <DefaultHead />
-      <title>Workoutly</title>
+      <title>Workoutly - a gym progress tracker</title>
     </>
   );
 }
