@@ -144,7 +144,7 @@ export default function EditMenu({
           </Button>
           <Button
             disabled={isLoading || !isOutdated}
-            onClick={discard}
+            onClick={() => setIsDiscardModalOpen(true)}
             className="px-0"
           >
             Discard
@@ -188,6 +188,25 @@ export default function EditMenu({
             />
           </div>
           <Button onClick={() => setIsCreateModalOpen(false)}>Cancel</Button>
+        </div>
+      </Modal>
+      <Modal
+        isOpen={isDiscardModalOpen}
+        onClose={() => setIsDiscardModalOpen(false)}
+        title="Discard changes"
+      >
+        <div className="grid grid-cols-2 gap-4">
+          <h2 className="col-span-2">Discard all modifications?</h2>
+          <Button
+            primary
+            onClick={() => {
+              discard();
+              setIsDiscardModalOpen(false);
+            }}
+          >
+            Yes
+          </Button>
+          <Button onClick={() => setIsDiscardModalOpen(false)}>No</Button>
         </div>
       </Modal>
     </div>
