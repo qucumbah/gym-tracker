@@ -3,6 +3,7 @@ import getServerSession from "@/utils/getServerSession";
 import WorkoutCreationMenu from "./WorkoutCreationMenu";
 import WorkoutCopyMenu from "./WorkoutCopyMenu";
 import FallbackButtons from "@/components/FallbackButtons";
+import WorkoutProvider from "@/components/WorkoutProvider";
 
 export default async function CreateWorkoutPage() {
   await getServerSession({ required: true });
@@ -10,7 +11,9 @@ export default async function CreateWorkoutPage() {
   const workoutCopyMenu = (
     <Suspense fallback={<FallbackButtons className="w-full" count={3} />}>
       {/* @ts-expect-error Server Component */}
-      <WorkoutCopyMenu />
+      <WorkoutProvider
+        render={(workouts) => <WorkoutCopyMenu workouts={workouts} />}
+      />
     </Suspense>
   );
 

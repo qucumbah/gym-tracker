@@ -1,20 +1,26 @@
-import React from "react";
-import { appRouter } from "@/server/router";
+import React, { Suspense } from "react";
 import getServerSession from "@/utils/getServerSession";
-import { Workout } from "@prisma/client";
 import WorkoutToEditPickMenu from "./WorkoutToEditPickMenu";
+import FallbackButtons from "@/components/FallbackButtons";
+import WorkoutProvider from "@/components/WorkoutProvider";
+import WorkoutPickMenu from "./WorkoutPickMenu";
 
 export default async function PreviousWorkoutsPage() {
-  const session = await getServerSession({ required: true });
+  await getServerSession({ required: true });
 
-  const caller = appRouter.createCaller(session);
-
-  const workouts: Workout[] = await caller.workouts.list();
+  const workoutPickMenu = (
+    <Suspense fallback={<FallbackButtons className="w-full" count={3} />}>
+      {/* @ts-expect-error Server Component */}
+      <WorkoutProvider
+        render={(workouts) => <WorkoutPickMenu workouts={workouts} />}
+      />
+    </Suspense>
+  );
 
   return (
     <main className="w-[clamp(15rem,50%,30rem)] mx-auto flex flex-col justify-center items-center gap-8">
       <h1 className="font-accent text-2xl uppercase">Edit Workout</h1>
-      <WorkoutToEditPickMenu workouts={workouts} />
+      <WorkoutToEditPickMenu workoutPickMenu={workoutPickMenu} />
     </main>
   );
 }

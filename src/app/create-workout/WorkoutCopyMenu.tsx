@@ -1,13 +1,22 @@
-import { appRouter } from "@/server/router";
-import getServerSession from "@/utils/getServerSession";
-import WorkoutCopyList from "./WorkoutCopyList";
+"use client";
 
-export default async function WorkoutCopyMenu() {
-  const session = await getServerSession({ required: true });
+import WorkoutsList from "@/components/WorkoutsList";
+import { Workout } from "@prisma/client";
+import Image from "next/image";
 
-  const caller = appRouter.createCaller(session);
+export default function WorkoutCopyList({ workouts }: { workouts: Workout[] }) {
+  // const workoutCopyMutation = trpc.workouts.copy.useMutation();
+  const handleCopy = () => {};
 
-  const workouts = await caller.workouts.list();
-
-  return <WorkoutCopyList workouts={workouts} />;
+  return (
+    <WorkoutsList
+      workouts={workouts}
+      onSelect={handleCopy}
+      additionalContent={
+        <div className="relative shrink-0 aspect-square w-4">
+          <Image src="/copy.svg" fill sizes="100vw" alt="" />
+        </div>
+      }
+    />
+  );
 }

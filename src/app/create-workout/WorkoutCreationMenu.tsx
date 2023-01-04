@@ -11,7 +11,7 @@ import { useState } from "react";
 export default function WorkoutCreationMenu({
   workoutCopyMenu,
 }: {
-  workoutCopyMenu: JSX.Element;
+  workoutCopyMenu: React.ReactNode;
 }) {
   const router = useRouter();
 
