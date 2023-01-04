@@ -15,6 +15,13 @@ module.exports = {
         accent: "hsl(220, 30%, 60%)",
         neutral: "hsl(220, 10%, 30%)",
       },
+      keyframes: {
+        shimmer: {
+          "100%": {
+            transform: "translateX(100%)",
+          },
+        },
+      },
     },
   },
   plugins: [],

@@ -18,7 +18,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           "cursor-pointer select-none px-16 py-4 border-2 border-blue-500 rounded-lg font-bold whitespace-nowrap",
           primary ? "bg-blue-500 text-white" : "",
           disabled ? "opacity-30 cursor-auto" : "",
-          className,
+          className ?? "",
         ].join(" ")}
         ref={ref}
         onClick={onClick}

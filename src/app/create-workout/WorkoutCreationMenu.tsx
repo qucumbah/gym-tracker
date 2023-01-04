@@ -2,7 +2,6 @@
 
 import Button from "@/components/Button";
 import Modal from "@/components/Modal";
-import WorkoutsList from "@/components/WorkoutsList";
 import { trpc } from "@/utils/trpc";
 import { Workout } from "@prisma/client";
 import Image from "next/image";
@@ -10,14 +9,13 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function WorkoutCreationMenu({
-  existingWorkouts,
+  workoutCopyMenu,
 }: {
-  existingWorkouts: Workout[];
+  workoutCopyMenu: JSX.Element;
 }) {
   const router = useRouter();
 
   const workoutCreateMutation = trpc.workouts.create.useMutation();
-  // const workoutCopyMutation = trpc.workouts.copy.useMutation();
 
   const [isCreatingWorkout, setIsCreatingWorkout] = useState(false);
 
@@ -26,8 +24,6 @@ export default function WorkoutCreationMenu({
     const creationResult: Workout = await workoutCreateMutation.mutateAsync();
     router.push(`/edit-workout/${creationResult.id}`);
   };
-
-  const handleCopy = () => {};
 
   return (
     <>
@@ -40,15 +36,7 @@ export default function WorkoutCreationMenu({
         </div>
       </Button>
       <div>Or copy existing workout:</div>
-      <WorkoutsList
-        workouts={existingWorkouts}
-        onSelect={handleCopy}
-        additionalContent={
-          <div className="relative shrink-0 aspect-square w-4">
-            <Image src="/copy.svg" fill sizes="100vw" alt="" />
-          </div>
-        }
-      />
+      {workoutCopyMenu}
       <Modal isOpen={isCreatingWorkout} onClose={() => {}} title="Loading...">
         <div className="">Creating a new workout...</div>
       </Modal>
