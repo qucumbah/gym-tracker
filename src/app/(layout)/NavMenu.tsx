@@ -34,7 +34,7 @@ export default function NavMenu() {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute left-1/2 -translate-x-1/2 translate-y-2 shadow-[0px_5px_25px_0px_rgba(0,0,0,0.2)] text-2xl whitespace-nowrap bg-white rounded-md overflow-hidden flex flex-col">
+          <Menu.Items className="absolute z-50 left-1/2 -translate-x-1/2 translate-y-2 shadow-[0px_5px_25px_0px_rgba(0,0,0,0.2)] text-2xl whitespace-nowrap bg-white rounded-md overflow-hidden flex flex-col">
             {navLinks.map((link, index) => (
               <Menu.Item as="li" key={index} className="list-none">
                 {link}

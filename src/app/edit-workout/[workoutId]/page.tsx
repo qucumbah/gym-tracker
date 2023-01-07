@@ -14,16 +14,15 @@ export default async function EditWorkoutPage({
 
   const caller = appRouter.createCaller(session);
 
-  const workout = await caller.workouts.get({ workoutId });
+  const [workout, trainingSets, exercises] = await Promise.all([
+    caller.workouts.get({ workoutId }),
+    caller.trainingSets.list({ workoutId }),
+    caller.exercises.list(),
+  ]);
 
   if (!workout) {
     notFound();
   }
-
-  const [trainingSets, exercises] = await Promise.all([
-    caller.trainingSets.list({ workoutId }),
-    caller.exercises.list(),
-  ]);
 
   return (
     <EditMenu
