@@ -4,13 +4,19 @@ import Button from "@/components/Button";
 import ExercisesList from "@/components/ExercisesList";
 import Modal from "@/components/Modal";
 import { trpc } from "@/utils/trpc";
+import { DndContext, DragEndEvent } from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
 import { Exercise, TrainingSet, Workout } from "@prisma/client";
 import cuid from "cuid";
 import { useCallback, useMemo, useState } from "react";
 import TrainingSetEditor from "./TrainingSetEditor";
 import { useOptimisticData } from "./useOptimisticData";
 
-export default function EditMenu({
+export default function WorkoutEditor({
   workout: serverWorkout,
   trainingSets: serverTrainingSets,
   exercises,
@@ -110,6 +116,32 @@ export default function EditMenu({
     [workout, update]
   );
 
+  const moveTrainingSet = useCallback(
+    (event: DragEndEvent) => {
+      const { active, over } = event;
+
+      if (over === null) {
+        return;
+      }
+
+      if (active.id === over.id) {
+        return;
+      }
+
+      update(({ trainingSets, ...oldData }) => {
+        const oldIndex = trainingSets.findIndex(
+          (item) => item.id === active.id
+        );
+        const newIndex = trainingSets.findIndex((item) => item.id === over.id);
+        return {
+          ...oldData,
+          trainingSets: arrayMove(trainingSets, oldIndex, newIndex),
+        };
+      });
+    },
+    [workout, update]
+  );
+
   const exercisesMap = useMemo(() => {
     const mapSource = exercises.map(
       (exercise) => [exercise.id, exercise] as const
@@ -153,16 +185,25 @@ export default function EditMenu({
       </section>
       <section className="grid grid-cols-1 gap-4">
         <h2 className="uppercase">Sets:</h2>
-        {trainingSets.map((trainingSet) => (
-          <TrainingSetEditor
-            key={trainingSet.id}
-            trainingSet={trainingSet}
-            exerciseName={exercisesMap.get(trainingSet.exerciseId)?.name ?? ""}
-            onChange={updateTrainingSet}
-            onDelete={() => deleteTrainingSet(trainingSet)}
-            disabled={isLoading}
-          />
-        ))}
+        <DndContext onDragEnd={moveTrainingSet}>
+          <SortableContext
+            items={trainingSets}
+            strategy={verticalListSortingStrategy}
+          >
+            {trainingSets.map((trainingSet) => (
+              <TrainingSetEditor
+                key={trainingSet.id}
+                trainingSet={trainingSet}
+                exerciseName={
+                  exercisesMap.get(trainingSet.exerciseId)?.name ?? ""
+                }
+                onChange={updateTrainingSet}
+                onDelete={() => deleteTrainingSet(trainingSet)}
+                disabled={isLoading}
+              />
+            ))}
+          </SortableContext>
+        </DndContext>
         <Button
           primary
           disabled={isLoading}

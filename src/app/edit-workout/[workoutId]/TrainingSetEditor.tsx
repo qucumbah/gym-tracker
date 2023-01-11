@@ -1,7 +1,10 @@
 "use client";
 
 import Button from "@/components/Button";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 import { TrainingSet } from "@prisma/client";
+import Image from "next/image";
 
 export default function TrainingSetEditor({
   trainingSet,
@@ -44,14 +47,35 @@ export default function TrainingSetEditor({
       reps: parse(repsInput),
     });
   };
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: trainingSet.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    zIndex: isDragging ? 50 : "auto",
+  };
 
   return (
     <div
       className={[
-        "grid md:grid-cols-4 items-center gap-2 border border-blue-500 rounded-lg p-4",
+        "grid md:grid-cols-[auto_1fr_1fr_1fr_1fr] items-center gap-2 border border-blue-500 bg-white rounded-lg p-4",
         disabled ? "opacity-30" : "",
       ].join(" ")}
+      ref={setNodeRef}
+      style={style}
     >
+      <div {...listeners} {...attributes}>
+        <div className="relative shrink-0 aspect-square w-8 pointer-events-none">
+          <Image src="/reorder.svg" fill sizes="100vw" alt="" />
+        </div>
+      </div>
       <div>Exercise: {exerciseName}</div>
       <div>
         <span>Load:</span>

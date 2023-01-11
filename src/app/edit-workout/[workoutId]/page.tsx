@@ -1,7 +1,7 @@
 import { appRouter } from "@/server/router";
 import getServerSession from "@/utils/getServerSession";
 import { notFound } from "next/navigation";
-import EditMenu from "./EditMenu";
+import WorkoutEditor from "./WorkoutEditor";
 
 export default async function EditWorkoutPage({
   params,
@@ -25,7 +25,7 @@ export default async function EditWorkoutPage({
   }
 
   return (
-    <EditMenu
+    <WorkoutEditor
       workout={workout}
       trainingSets={trainingSets}
       exercises={exercises}
