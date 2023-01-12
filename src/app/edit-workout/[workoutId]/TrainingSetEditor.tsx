@@ -65,18 +65,21 @@ export default function TrainingSetEditor({
   return (
     <div
       className={[
-        "grid md:grid-cols-[auto_1fr_1fr_1fr_1fr] items-center gap-2 border border-blue-500 bg-white rounded-lg p-4",
+        "grid md:grid-cols-4 items-center gap-2",
+        "border border-blue-500 bg-white rounded-lg p-4 touch-none",
         disabled ? "opacity-30" : "",
       ].join(" ")}
       ref={setNodeRef}
       style={style}
     >
-      <div {...listeners} {...attributes}>
-        <div className="relative shrink-0 aspect-square w-8 pointer-events-none">
-          <Image src="/reorder.svg" fill sizes="100vw" alt="" />
+      <div className="flex justify-between md:justify-start gap-2 items-center flex-row-reverse md:flex-row">
+        <div {...listeners} {...attributes}>
+          <div className="relative shrink-0 aspect-square w-8 pointer-events-none">
+            <Image src="/reorder.svg" fill sizes="100vw" alt="" />
+          </div>
         </div>
+        Exercise: {exerciseName}
       </div>
-      <div>Exercise: {exerciseName}</div>
       <div>
         <span>Load:</span>
         <input

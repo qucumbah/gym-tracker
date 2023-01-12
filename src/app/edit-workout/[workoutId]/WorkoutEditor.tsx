@@ -151,7 +151,7 @@ export default function WorkoutEditor({
   }, [exercises]);
 
   return (
-    <div>
+    <div className="pb-4">
       <section className="grid md:grid-cols-2 gap-4 md:gap-20 py-4">
         <div className="grid grid-cols-[auto_1fr] gap-2 place-items-center">
           <h2 className="uppercase">Workout name:</h2>
