@@ -39,6 +39,57 @@ export const workoutsRouter = router({
       },
     });
   }),
+  copy: protectedProcedure
+    .input(
+      z.object({
+        workoutId: z.string(),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      const [existingWorkout, existingTrainingSets] = await prisma.$transaction(
+        [
+          prisma.workout.findUnique({
+            where: {
+              id_userId: {
+                id: input.workoutId,
+                userId: ctx.user.id,
+              },
+            },
+          }),
+          prisma.trainingSet.findMany({
+            where: {
+              userId: ctx.user.id,
+              workoutId: input.workoutId,
+            },
+          }),
+        ]
+      );
+
+      if (existingWorkout === null) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: `Workout with ID ${input.workoutId} not found`,
+        });
+      }
+
+      const newWorkout = await prisma.workout.create({
+        data: {
+          ...existingWorkout,
+          id: undefined,
+          name: `${existingWorkout.name} - copy`,
+        },
+      });
+
+      await prisma.trainingSet.createMany({
+        data: existingTrainingSets.map((existingTrainingSet) => ({
+          ...existingTrainingSet,
+          id: undefined,
+          workoutId: newWorkout.id,
+        })),
+      });
+
+      return newWorkout;
+    }),
   modify: protectedProcedure
     .input(
       z.object({

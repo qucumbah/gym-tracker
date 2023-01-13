@@ -1,6 +1,9 @@
 import DefaultHead from "@/components/DefaultHead";
+import getServerSession from "@/utils/getServerSession";
 
-export default function Head() {
+export default async function Head() {
+  await getServerSession({ required: true });
+
   return (
     <>
       <DefaultHead />
