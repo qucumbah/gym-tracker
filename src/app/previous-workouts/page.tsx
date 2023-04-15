@@ -6,6 +6,10 @@ import WorkoutProvider from "@/components/WorkoutProvider";
 import Link from "next/link";
 import Image from "next/image";
 
+export const metadata = {
+  title: "Previous Workouts",
+};
+
 export default async function PreviousWorkoutsPage() {
   await getServerSession({ required: true });
 

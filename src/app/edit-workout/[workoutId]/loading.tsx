@@ -1,4 +1,9 @@
 import Image from "next/image";
+import { pageTitle } from './pageTitle';
+
+export const metadata = {
+  title: pageTitle,
+};
 
 export default function Loading() {
   return (

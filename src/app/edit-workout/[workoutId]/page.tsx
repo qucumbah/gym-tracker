@@ -2,6 +2,11 @@ import { appRouter } from "@/server/router";
 import getServerSession from "@/utils/getServerSession";
 import { notFound } from "next/navigation";
 import WorkoutEditor from "./WorkoutEditor";
+import { pageTitle } from "./pageTitle";
+
+export const metadata = {
+  title: pageTitle,
+};
 
 export default async function EditWorkoutPage({
   params,

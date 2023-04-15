@@ -7,6 +7,14 @@ import SessionStatus from "./(layout)/SessionStatus";
 import TRPCClientProvider from "./(layout)/TRPCClientProvider";
 import { headers } from "next/headers";
 
+export const metadata = {
+  viewport: "width=device-width, initial-scale=1",
+  description: "Gym tracker app built using Next.js 13 with app directory",
+  keywords: "gym progress app Next.js 13",
+  themeColor: "#3B82F6",
+  icons: "/icon.svg",
+};
+
 export default async function RootLayout({
   children,
 }: {

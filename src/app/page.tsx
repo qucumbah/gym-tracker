@@ -2,6 +2,10 @@ import getServerSession from "@/utils/getServerSession";
 import Image from "next/image";
 import Buttons from "./(page)/Buttons";
 
+export const metadata = {
+  title: "Workoutly - a gym progress tracker",
+};
+
 export default async function HomePage() {
   const session = await getServerSession();
 
