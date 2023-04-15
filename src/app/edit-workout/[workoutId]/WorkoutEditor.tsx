@@ -11,7 +11,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { Exercise, TrainingSet, Workout } from "@prisma/client";
-import cuid from "cuid";
+import cuid from "@paralleldrive/cuid2";
 import { useCallback, useMemo, useState } from "react";
 import TrainingSetEditor from "./TrainingSetEditor";
 import { useOptimisticData } from "./useOptimisticData";
@@ -100,7 +100,7 @@ export default function WorkoutEditor({
   const createTrainingSet = useCallback(
     (exercise: Exercise) => {
       const newTrainingSet: TrainingSet = {
-        id: cuid(),
+        id: cuid.createId(),
         workoutId: workout.id,
         exerciseId: exercise.id,
         load: 0,
