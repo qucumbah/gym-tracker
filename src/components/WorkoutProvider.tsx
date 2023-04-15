@@ -14,7 +14,5 @@ export default async function WorkoutProvider({
 
   const workouts = await caller.workouts.list();
 
-  await new Promise((resolve) => setTimeout(resolve, 3000));
-
   return render(workouts);
 }
