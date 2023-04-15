@@ -23,7 +23,7 @@ export default async function PreviousWorkoutsPage() {
             render={(workouts) =>
               workouts.map((workout) => (
                 <li key={workout.id}>
-                  <Link href={"/create-workout"} className="w-full">
+                  <Link href={`/edit-workout/${workout.id}`} className="w-full">
                     <Button className="w-full">
                       <div className="flex gap-2 justify-center items-center">
                         {workout.name}
