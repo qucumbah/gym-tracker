@@ -6,7 +6,7 @@ export const metadata = {
   title: "Create Workout",
 };
 
-export default async function RootLayout({
+export default async function Layout({
   children,
 }: {
   children: React.ReactNode;
