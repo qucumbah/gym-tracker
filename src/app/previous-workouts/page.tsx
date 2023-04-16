@@ -14,7 +14,7 @@ export default async function PreviousWorkoutsPage() {
   await getServerSession({ required: true });
 
   return (
-    <main className="w-[clamp(15rem,50%,30rem)] mx-auto flex flex-col justify-center items-center gap-8">
+    <main className="w-[clamp(15rem,50%,30rem)] mx-auto flex flex-col justify-center items-center gap-8 pb-8">
       <h1 className="font-accent text-2xl uppercase">Edit Workout</h1>
       <ul className="w-full flex flex-col gap-2">
         <Suspense fallback={<FallbackButtons className="w-full" count={3} />}>

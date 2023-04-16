@@ -4,11 +4,17 @@ import { z } from "zod";
 
 export const trainingSetsRouter = router({
   list: protectedProcedure
-    .input(z.object({ workoutId: z.string() }))
+    .input(
+      z.object({
+        workoutId: z.string().optional(),
+        exerciseId: z.string().optional(),
+      })
+    )
     .query(({ input, ctx }) => {
       return prisma.trainingSet.findMany({
         where: {
           workoutId: input.workoutId,
+          exerciseId: input.exerciseId,
           userId: ctx.user.id,
         },
       });

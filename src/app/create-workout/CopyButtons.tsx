@@ -1,5 +1,3 @@
-"use client";
-
 import Button from "@/components/Button";
 import { trpc } from "@/utils/trpc";
 import { Workout } from "@prisma/client";

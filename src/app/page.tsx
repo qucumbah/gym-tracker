@@ -11,16 +11,18 @@ export default async function HomePage() {
 
   return (
     <>
-      <div className="grid grid-rows-[1fr_1fr_auto] content-center">
-        <header className="grid justify-items-center self-end">
-          <h1 className="font-accent uppercase text-5xl">Workoutly</h1>
-          <h2 className="uppercase text-lg">Gym Progress Tracker</h2>
-        </header>
-        <main className="grid pt-4 items-start">
-          <div className="grid justify-center gap-4 grid-cols-[repeat(auto-fit,15rem)]">
-            <Buttons isLoggedIn={!!session} />
+      <div className="grid grid-rows-[1fr_auto] content-center">
+        <div className="grid place-items-center">
+          <div className="grid gap-4 justify-self-stretch">
+            <header className="grid justify-items-center self-end">
+              <h1 className="font-accent uppercase text-5xl">Workoutly</h1>
+              <h2 className="uppercase text-lg">Gym Progress Tracker</h2>
+            </header>
+            <main className="grid items-start">
+              <Buttons isLoggedIn={!!session} />
+            </main>
           </div>
-        </main>
+        </div>
         <footer className="p-4 grid place-items-center">
           <a
             href="https://github.com/qucumbah/gym-progress-tracker"
