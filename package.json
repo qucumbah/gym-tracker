@@ -24,7 +24,7 @@
     "@trpc/react-query": "^10.20.0",
     "@trpc/server": "^10.20.0",
     "@types/node": "^18.15.11",
-    "@types/react": "^18.0.35",
+    "@types/react": "^18.0.37",
     "@types/react-dom": "^18.0.11",
     "@yarnpkg/pnpify": "^4.0.0-rc.42",
     "autoprefixer": "^10.4.14",
