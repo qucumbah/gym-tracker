@@ -94,7 +94,8 @@ export const workoutsRouter = router({
     .input(
       z.object({
         workoutId: z.string(),
-        name: z.string(),
+        name: z.string().optional(),
+        time: z.date().optional(),
       })
     )
     .mutation(async ({ input, ctx }) => {
@@ -107,6 +108,7 @@ export const workoutsRouter = router({
         },
         data: {
           name: input.name,
+          time: input.time,
         },
       });
     }),

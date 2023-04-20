@@ -13,7 +13,9 @@ model Workout {
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  name         String
+  name String
+  time DateTime @default(now())
+
   trainingSets TrainingSet[]
 
   @@unique([id, userId])
