@@ -6,8 +6,10 @@ import Link from "next/link";
 
 export default function Buttons({ isLoggedIn }: { isLoggedIn: boolean }) {
   return (
-    <div className="grid justify-center gap-4 grid-cols-[15rem] md:grid-cols-[15rem_15rem]">
-      {isLoggedIn ? <ControlButtons /> : <LogInButton />}
+    <div className="grid max-w-[35rem] relative left-1/2 -translate-x-1/2">
+      <div className="grid justify-center gap-4 grid-cols-[repeat(auto-fit,15rem)]">
+        {isLoggedIn ? <ControlButtons /> : <LogInButton />}
+      </div>
     </div>
   );
 }
@@ -15,13 +17,15 @@ export default function Buttons({ isLoggedIn }: { isLoggedIn: boolean }) {
 function ControlButtons() {
   return (
     <>
-      <Link href="/create-workout" className="relative w-full md:col-span-2">
+      <Link href="/create-workout" className="relative w-full col-[1_/_-1]">
         <Button className="relative w-full px-[unset]" primary>
           New workout
         </Button>
       </Link>
       <Link href="/previous-workouts" className="relative w-full">
-        <Button className="relative w-full px-[unset]">Previous workouts</Button>
+        <Button className="relative w-full px-[unset]">
+          Previous workouts
+        </Button>
       </Link>
       <Link href="/analysis-board" className="relative w-full">
         <Button className="relative w-full px-[unset]">Analysis board</Button>
