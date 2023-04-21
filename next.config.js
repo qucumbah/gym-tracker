@@ -5,6 +5,7 @@ const nextConfig = {
   experimental: {
     appDir: true,
     serverComponentsExternalPackages: ["@prisma/client"],
+    swcPlugins: [["next-superjson-plugin", {}]],
   },
 };
 

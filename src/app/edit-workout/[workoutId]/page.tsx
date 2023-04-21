@@ -34,6 +34,7 @@ export default async function EditWorkoutPage({
       workout={workout}
       trainingSets={trainingSets}
       exercises={exercises}
+      data-superjson
     />
   );
 }
