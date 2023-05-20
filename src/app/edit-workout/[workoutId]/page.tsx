@@ -25,6 +25,8 @@ export default async function EditWorkoutPage({
     caller.exercises.list(),
   ]);
 
+  console.log(exercises);
+
   if (!workout) {
     notFound();
   }

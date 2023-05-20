@@ -1,13 +1,9 @@
-import { useContext } from "react";
-import { ExercisesContext } from "./ExercisesContext";
-import ExercisePicker from "./ExercisePicker";
+import AnalysisResultPlaceholder from "./AnalysisResultPlaceholder";
 
 export default function AnalysisBoardPage() {
-  const exercises = useContext(ExercisesContext);
-
   return (
-    <div>
-      <ExercisePicker exercises={[...exercises]} />
-    </div>
+    <AnalysisResultPlaceholder>
+      The analysis result will appear here
+    </AnalysisResultPlaceholder>
   );
 }

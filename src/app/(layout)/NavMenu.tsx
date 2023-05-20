@@ -43,7 +43,7 @@ export default function NavMenu() {
           </Menu.Items>
         </Transition>
       </Menu>
-      <ul className="hidden md:flex justify-center gap-12">
+      <ul className="hidden md:flex justify-center gap-10">
         {navLinks.map((link, index) => (
           <li key={index}>{link}</li>
         ))}

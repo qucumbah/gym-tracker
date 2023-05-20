@@ -12,8 +12,11 @@ export default function ExercisePicker({
   const router = useRouter();
 
   return (
-    <div>
-      <h2>Pick an exercise to analyze:</h2>
+    <div className="flex flex-col items-center">
+      <h2 className="font-accent uppercase">
+        Pick an exercise to analyze:
+      </h2>
+      <div className="py-4" />
       <ExercisesList
         exercises={exercises}
         onSelect={(exercise) => router.push(`/analysis-board/${exercise.id}`)}

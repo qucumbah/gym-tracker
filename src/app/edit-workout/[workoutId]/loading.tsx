@@ -1,5 +1,5 @@
-import Image from "next/image";
-import { pageTitle } from './pageTitle';
+import { pageTitle } from "./pageTitle";
+import LoadingHeart from "@/components/LoadingHeart";
 
 export const metadata = {
   title: pageTitle,
@@ -9,9 +9,7 @@ export default function Loading() {
   return (
     <div className="grid place-items-center content-center justify-center">
       <span className="absolute -translate-y-2">Loading...</span>
-      <div className="relative aspect-square w-36 animate-[heartbeat_1.2s_infinite] ease-heart">
-        <Image src="/heart.svg" alt="" fill sizes="100vw" />
-      </div>
+      <LoadingHeart />
     </div>
   );
 }
