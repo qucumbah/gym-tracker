@@ -71,6 +71,19 @@ export default function WorkoutEditor({
     [update]
   );
 
+  const updateWorkoutTime = useCallback(
+    (newTime: Date) => {
+      update((oldData) => ({
+        ...oldData,
+        workout: {
+          ...oldData.workout,
+          time: newTime,
+        },
+      }));
+    },
+    [update]
+  );
+
   const updateTrainingSet = useCallback(
     (updatedTrainingSet: TrainingSet) => {
       update((oldData) => ({
@@ -183,7 +196,22 @@ export default function WorkoutEditor({
           </Button>
         </div>
       </section>
-      <section className="grid grid-cols-1 gap-4">
+      <section className="py-4">
+        <div className="flex gap-2">
+          <h2 className="uppercase">Date and time:</h2>
+          <input
+            type="datetime-local"
+            value={dateToInput(workout.time)}
+            onChange={(event) =>
+              updateWorkoutTime(inputToDate(event.currentTarget.value))
+            }
+            className={["bg-transparent", isLoading ? "opacity-30" : ""].join(
+              " "
+            )}
+          />
+        </div>
+      </section>
+      <section className="grid grid-cols-1 gap-4 py-4">
         <h2 className="uppercase">Sets:</h2>
         <DndContext onDragEnd={moveTrainingSet}>
           <SortableContext
@@ -252,4 +280,19 @@ export default function WorkoutEditor({
       </Modal>
     </div>
   );
+}
+
+function dateToInput(dateObj: Date) {
+  const year = String(dateObj.getFullYear());
+  const month = String(dateObj.getMonth() + 1).padStart(2, "0");
+  const date = String(dateObj.getDate()).padStart(2, "0");
+
+  const hours = String(dateObj.getHours()).padStart(2, "0");
+  const minutes = String(dateObj.getMinutes()).padStart(2, "0");
+
+  return `${year}-${month}-${date}T${hours}:${minutes}`;
+}
+
+function inputToDate(input: string) {
+  return new Date(input);
 }
