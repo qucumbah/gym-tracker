@@ -41,8 +41,9 @@ model TrainingSet {
 }
 
 model Exercise {
-  id   String @id @default(cuid())
-  name String
+  id          String @id @default(cuid())
+  name        String
+  description String @default("")
 
   trainingSets TrainingSet[]
 }

@@ -2,6 +2,7 @@ import NextAuth, { NextAuthOptions } from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "@/server/utils/prisma";
+import { appRouter } from "@/server/router";
 
 export const nextAuthOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -17,11 +18,23 @@ export const nextAuthOptions: NextAuthOptions = {
   secret: process.env.AUTH_SECRET,
   callbacks: {
     async session({ session, token }) {
-      return {
+      const tempSession = {
         ...session,
         user: {
           ...session.user,
           id: token.userId,
+        },
+      };
+
+      const caller = appRouter.createCaller(tempSession);
+
+      const curUser = await caller.users.self();
+
+      return {
+        ...tempSession,
+        user: {
+          ...tempSession.user,
+          admin: curUser?.admin,
         },
       };
     },

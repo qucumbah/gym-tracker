@@ -10,17 +10,11 @@ export const metadata = {
 export default async function CmsPage() {
   const session = await getServerSession();
 
-  if (!session) {
+  if (!session || !session.user.admin) {
     notFound();
   }
 
   const caller = appRouter.createCaller(session);
-
-  const userInfo = await caller.users.get({ userId: session.user.id });
-
-  if (!userInfo || !userInfo.admin) {
-    notFound();
-  }
 
   const exercises = await caller.exercises.list();
 
