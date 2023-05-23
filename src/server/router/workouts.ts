@@ -112,4 +112,20 @@ export const workoutsRouter = router({
         },
       });
     }),
+  delete: protectedProcedure
+    .input(
+      z.object({
+        workoutId: z.string(),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      return prisma.workout.delete({
+        where: {
+          id_userId: {
+            id: input.workoutId,
+            userId: ctx.user.id,
+          },
+        },
+      });
+    }),
 });

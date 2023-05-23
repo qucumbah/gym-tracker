@@ -15,6 +15,7 @@ import cuid from "@paralleldrive/cuid2";
 import { useCallback, useMemo, useState } from "react";
 import TrainingSetEditor from "./TrainingSetEditor";
 import { useOptimisticData } from "./useOptimisticData";
+import { useRouter } from "next/navigation";
 
 export default function WorkoutEditor({
   workout: serverWorkout,
@@ -26,7 +27,10 @@ export default function WorkoutEditor({
   exercises: Exercise[];
 }) {
   const modifyWorkout = trpc.workouts.modify.useMutation();
+  const deleteWorkout = trpc.workouts.delete.useMutation();
   const replaceTrainingSets = trpc.trainingSets.replace.useMutation();
+
+  const router = useRouter();
 
   const pushChanges = async ({
     workout: updatedWorkout,
@@ -57,6 +61,7 @@ export default function WorkoutEditor({
 
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isDiscardModalOpen, setIsDiscardModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const updateWorkoutName = useCallback(
     (newName: string) => {
@@ -196,8 +201,8 @@ export default function WorkoutEditor({
           </Button>
         </div>
       </section>
-      <section className="py-4">
-        <div className="flex gap-2">
+      <section className="grid md:grid-cols-2 gap-4 md:gap-20 py-4">
+        <div className="flex items-center gap-2">
           <h2 className="uppercase">Date and time:</h2>
           <input
             type="datetime-local"
@@ -210,6 +215,13 @@ export default function WorkoutEditor({
             )}
           />
         </div>
+        <Button
+          disabled={isLoading}
+          onClick={() => setIsDeleteModalOpen(true)}
+          className="px-0"
+        >
+          Delete workout
+        </Button>
       </section>
       <section className="grid grid-cols-1 gap-4 py-4">
         <h2 className="uppercase">Sets:</h2>
@@ -271,6 +283,28 @@ export default function WorkoutEditor({
             onClick={() => {
               discard();
               setIsDiscardModalOpen(false);
+            }}
+          >
+            Yes
+          </Button>
+          <Button onClick={() => setIsDiscardModalOpen(false)}>No</Button>
+        </div>
+      </Modal>
+      <Modal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        title="Delete workout"
+      >
+        <div className="grid grid-cols-2 gap-4">
+          <h2 className="col-span-2">
+            Are you sure you want to delete the workout? This action is
+            irreversible
+          </h2>
+          <Button
+            primary
+            onClick={() => {
+              deleteWorkout.mutate({ workoutId: workout.id });
+              router.push(`/previous-workouts`);
             }}
           >
             Yes
