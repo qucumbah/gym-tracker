@@ -266,6 +266,7 @@ export default function WorkoutEditor({
                 createTrainingSet(exercise);
                 setIsCreateModalOpen(false);
               }}
+              showDescriptions
             />
           </div>
           <Button onClick={() => setIsCreateModalOpen(false)}>Cancel</Button>

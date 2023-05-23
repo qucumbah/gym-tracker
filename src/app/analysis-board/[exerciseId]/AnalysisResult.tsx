@@ -36,10 +36,6 @@ export default function AnalysisResult({
     grouping,
   });
 
-  console.log(prepareGroupsData);
-
-  console.log(data);
-
   return (
     <div className="flex flex-col gap-8">
       <div className="text-center font-accent uppercase">
